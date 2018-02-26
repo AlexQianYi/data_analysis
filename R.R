@@ -10,8 +10,10 @@ dir1 = paste('Circles/', b, sep="")
 relations = data.frame()
 nodeID = data.frame()
 IDlist = as.list(nodeID)
-
+count=0
 for (file in dir){
+  count=count+1
+  print(count)
   g = scan(file)
   if (!inherits(g, 'try-error')) g
   glist = as.list(g)
@@ -32,23 +34,7 @@ for (file in dir){
   }
 }
 
-for (file1 in dir1){
-  g1 = scan(file1)
-  if (!inherits(g1, 'try-error')) g1
-  g1list = as.list(g1)
-  circle1Num = scan(file, what='list', flush=TRUE)
-  
-  if (length(g1list) != 0){
-    start = g1list[0]
-    for (temp in g1list){
-      if (temp>100){
-        tempEdge = data.frame(from=nodeID, to=temp)
-        IDlist = c(IDlist, temp)
-        relations = rbind(relations, tempEdge)
-      }
-    }
-  }
-}
+
 
 node = as.list(data.frame())
 for(i in 1:nrow(relations)){
