@@ -1,6 +1,6 @@
 library('igraph')
 
-setwd('/Users/yiqian/Documents/BigdataPro1/')
+setwd('c:/Users/hfyjc/Desktop/bigdata/')
 a = list.files('Edges/')
 dir = paste('Edges/', a, sep="")
 n = length(dir)
@@ -32,7 +32,7 @@ for (file in dir){
   }
 }
 
-for (file1 in dir1[1:5]){
+for (file1 in dir1){
   g1 = scan(file1)
   if (!inherits(g1, 'try-error')) g1
   g1list = as.list(g1)
@@ -40,7 +40,7 @@ for (file1 in dir1[1:5]){
   
   if (length(g1list) != 0){
     start = g1list[0]
-    for (temp in g1list[2:]){
+    for (temp in g1list){
       if (temp>100){
         tempEdge = data.frame(from=nodeID, to=temp)
         IDlist = c(IDlist, temp)
