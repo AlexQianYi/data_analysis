@@ -11,14 +11,14 @@ relations = data.frame()
 nodeID = data.frame()
 IDlist = as.list(nodeID)
 count=0
-for (file in dir){
+for (file in dir[1:50]){
   count=count+1
   print(count)
   g = scan(file)
   if (!inherits(g, 'try-error')) g
   glist = as.list(g)
   circleNum = scan(file, what='list', flush=TRUE)
-
+  
   nodeID = gsub("Edges/", "", file)
   nodeID = as.numeric(gsub(".edges", "", nodeID))
   IDlist = c(IDlist, nodeID)
@@ -53,7 +53,7 @@ g = graph_from_data_frame(relations, directed=TRUE, vertices=NULL)
 #remove circle and multiple edges
 g = simplify(g)
 
-plot(g, vertex.size=2, vertex.label=NA, layout=layout.auto, edge.color=red(0.5), edge.arrow.mode="-")
+plot(g, vertex.size=2, vertex.label=NA, layout=layout.auto, edge.color=grey(0.5), edge.arrow.mode="-")
 
 #--------------------------------------------------------------
 # Question 4 Explore 10 functions
@@ -77,7 +77,7 @@ is.simple(g)
 closeness(g)
 
 # find loop edges
-closeness(g)
+count_multiple(g)
 
 # is the graph connected
 is.connected(g)
@@ -87,12 +87,12 @@ ecount(g)
 
 # average path length
 average.path.length(g)
-     
+
 #---------------------------------------------------------------
 # Question 5
-     
+
 # central persons
-central_person = alpha.centrality(g)
+central_person = alpha.centrality(g,alpha=0.1)
 CP = tail(sort(central_person), 5)
 print("central person: ")
 print(as.list(CP))
@@ -116,7 +116,7 @@ print(ego)
 betweenness = betweenness(g)
 print("betweenness centrality ")
 print(betweenness)
-power = power_centrality(g)
+power = power_centrality(g,exponent = 0.1)
 print('power centrality')
 print(power)
 
